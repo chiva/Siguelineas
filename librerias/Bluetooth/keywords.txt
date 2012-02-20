@@ -1,0 +1,21 @@
+#######################################
+# Syntax Coloring Map Bluetooth
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Bluetooth	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+turnOn	KEYWORD2
+turnOff	KEYWORD2
+setName	KEYWORD2
+setPinCode	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
