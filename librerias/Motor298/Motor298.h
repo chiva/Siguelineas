@@ -6,40 +6,54 @@
 class Motor298
 {
   private:
-    byte _pinForward, _pinReverse, _pinSpeed;
+    byte pinForward, pinReverse, pinSpeed;
   public:
     Motor298(byte, byte, byte);
-    void stop(void);
-    void forward(void);
-    void reverse(void);
-    void speed(byte);
+    void forward();
+    void reverse();
+    void setSpeed(boolean, byte);
+    void stop();
+    void brake();
 };
 
-Motor298::Motor298(pinForward, pinReverse, pinSpeed){
-    _pinForward = pinForward;
-    _pinReverse = pinReverse;
-    _pinSpeed = pinSpeed;
-    pinMode(_pinForward, OUTPUT);
-    pinMode(_pinReverse, OUTPUT);
-    pinMode(_pinSpeed, OUTPUT);
+Motor298::Motor298(byte pinForward, byte pinReverse, byte pinSpeed){
+    this->pinForward = pinForward;
+    this->pinReverse = pinReverse;
+    this->pinSpeed = pinSpeed;
+    pinMode(pinForward, OUTPUT);
+    pinMode(pinReverse, OUTPUT);
+    pinMode(pinSpeed, OUTPUT);
+    stop();
 }
 
-Motor298::stop(){
-    digitalWrite(_pinForward, LOW);
-    digitalWrite(_pinReverse, LOW);
+void Motor298::stop(){
+    digitalWrite(pinForward, LOW);
+    digitalWrite(pinReverse, LOW);
+    digitalWrite(pinSpeed, LOW);
 }
 
-Motor298::forward(){
-    digitalWrite(_pinForward, HIGH);
-    digitalWrite(_pinReverse, LOW);
+void Motor298::brake(){
+    digitalWrite(pinForward, LOW);
+    digitalWrite(pinReverse, LOW);
+    digitalWrite(pinSpeed, HIGH);
 }
 
-Motor298::reverse(){
-    digitalWrite(_pinReverse, HIGH);
-    digitalWrite(_pinForward, LOW);
+void Motor298::forward(){
+    digitalWrite(pinForward, HIGH);
+    digitalWrite(pinReverse, LOW);
 }
 
-Motor298::speed(speed){
-    analogWrite(_pinSpeed, map(speed, 0, 100, 0, 1024));
+void Motor298::reverse(){
+    digitalWrite(pinReverse, HIGH);
+    digitalWrite(pinForward, LOW);
+}
+
+void Motor298::setSpeed(boolean direction, byte speed){
+    if (direction){
+        forward();
+    } else {
+        reverse();
+    }
+    analogWrite(pinSpeed, speed);
 }
 #endif

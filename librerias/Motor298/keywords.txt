@@ -1,5 +1,5 @@
 #######################################
-# Syntax Coloring Map Servo
+# Syntax Coloring Map Motor298
 #######################################
 
 #######################################
@@ -14,7 +14,7 @@ Motor298	KEYWORD1
 stop	KEYWORD2
 forward	KEYWORD2
 reverse	KEYWORD2
-speed	KEYWORD2
+setSpeed	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
