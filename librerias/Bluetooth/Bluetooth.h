@@ -7,6 +7,7 @@ class Bluetooth
 {
   private:
     byte pinReset;
+    unsigned long initial = 0;
     boolean connected();
     void dumpResponse();
   public:
@@ -25,7 +26,7 @@ Bluetooth::Bluetooth(byte pinReset){
 }
 
 boolean Bluetooth::connected(){
-    return millis() > 1000;
+    return millis() - initial > 1000;
 }
 
 void Bluetooth::dumpResponse(){
@@ -55,10 +56,12 @@ void Bluetooth::setName(char name[]){
 
 inline void Bluetooth::turnOn(){
     digitalWrite(pinReset, HIGH);
+    initial = millis();
 }
 
 inline void Bluetooth::turnOff(){
     digitalWrite(pinReset, LOW);
+    initial = 0;
 }
 
 void Bluetooth::reset(){
