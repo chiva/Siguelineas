@@ -5,7 +5,7 @@
 /**********************/
 /* Definiciones Motor */
 /**********************/
-// No usar PWM 5 y 6, no llegan a 0
+// PWM 5 y 6, no llegan a 0
 #define MT_IZQ_AVANCE   3
 #define MT_IZQ_RETRO    4
 #define MT_IZQ_CONTROL  5
@@ -37,11 +37,15 @@ Bluetooth bt(BT_RESET);
 void setup(){
   Serial.begin(9600);
   
-  #ifdef BT_NAME
-    bt.setName(BT_NAME);
-  #endif
-  #ifdef BT_PINCODE
-    bt.setPinCode(BT_PINCODE);
+  #if defined(BT_NAME) || defined(BT_PINCODE)
+    bt.turnOn();
+    #ifdef BT_NAME
+      bt.setName(BT_NAME);
+    #endif
+    #ifdef BT_PINCODE
+      bt.setPinCode(BT_PINCODE);
+    #endif
+    bt.turnOff();
   #endif
 }
 
