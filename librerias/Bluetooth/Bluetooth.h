@@ -7,7 +7,7 @@ class Bluetooth
 {
   private:
     byte pinReset;
-    unsigned long initial = 0;
+    unsigned long initial;
     boolean connected();
     void dumpResponse();
   public:
