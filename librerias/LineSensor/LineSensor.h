@@ -12,7 +12,7 @@ class LineSensor
     byte pinSensor[LN_SENSORS];    // {IZQ_3, IZQ_2, IZQ_1, DCHA_1, DCHA_2, DCHA_3}
     byte lastRead[LN_SENSORS];
     static const int8_t sensorWeight[LN_SENSORS];
-    byte weight;
+    byte weight, lastWeight;
     byte sensorsOn;
   public:
     LineSensor(byte[]);
@@ -21,6 +21,8 @@ class LineSensor
 };
 
 LineSensor::LineSensor(byte pinSensor[]){
+    lastWeight = 0;
+    
     for (byte i=0; i<LN_SENSORS; i++){
         this->pinSensor[i] = pinSensor[i];
         pinMode(pinSensor[i], INPUT);
@@ -47,7 +49,12 @@ byte LineSensor::follow(){
             sensorsOn++;
         }
     }
-    return weight/sensorsOn;
+    weight /= sensorsOn;
+    if (!sensorsOn){
+        return lastWeight;
+    } else {
+        return weight;
+    }
 }
 
 #endif
