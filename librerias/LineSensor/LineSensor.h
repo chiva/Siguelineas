@@ -53,6 +53,7 @@ byte LineSensor::follow(){
     if (!sensorsOn){
         return lastWeight;
     } else {
+        lastWeight = weight;
         return weight;
     }
 }
