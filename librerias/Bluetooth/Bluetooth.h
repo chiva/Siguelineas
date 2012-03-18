@@ -32,8 +32,7 @@ boolean Bluetooth::connected(){
 void Bluetooth::dumpResponse(){
     unsigned long inicial = millis();
     
-    while (!Serial.available());
-    while (millis()-inicial < 250){
+    while (Serial.available()){
         Serial.read();
     }
 }
@@ -42,6 +41,7 @@ void Bluetooth::setPinCode(char pin[]){
     if (!connected()){
         Serial.print("AT+PIN");
         Serial.print(pin);
+        delay(1000);
         dumpResponse();
     }
 }
@@ -50,6 +50,7 @@ void Bluetooth::setName(char name[]){
     if (!connected()){
         Serial.print("AT+NAME");
         Serial.print(name);
+        delay(1000);
         dumpResponse();
     }
 }
