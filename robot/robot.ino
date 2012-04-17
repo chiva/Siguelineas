@@ -1,6 +1,5 @@
 #include <Motor298.h>
 #include <Driver298.h>
-#include <Bluetooth.h>
 #include <LineSensor.h>
 
 /**********************/
@@ -22,15 +21,6 @@
 Driver298 motor(MT_IZQ_AVANCE, MT_IZQ_RETRO, MT_IZQ_CONTROL,
                 MT_DCHA_AVANCE, MT_DCHA_RETRO, MT_DCHA_CONTROL);
 
-/**************************/
-/* Definiciones Bluetooth */
-/**************************/
-#define BT_RESET    10
-#define BT_NAME     "ROBOTO"
-#define BT_PINCODE  "1234"
-
-Bluetooth bt(BT_RESET);
-
 /*****************************/
 /* Definiciones Sensor Línea */
 /*****************************/
@@ -40,17 +30,6 @@ byte ratio;
 
 void setup(){
   Serial.begin(9600);
-  
-  #if defined(BT_NAME) || defined(BT_PINCODE)
-    bt.turnOn();
-    #ifdef BT_NAME
-      bt.setName(BT_NAME);
-    #endif
-    #ifdef BT_PINCODE
-      bt.setPinCode(BT_PINCODE);
-    #endif
-    bt.turnOff();
-  #endif
 }
 
 void loop(){
