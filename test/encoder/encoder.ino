@@ -1,5 +1,5 @@
 //Deteccion a 0
-byte sensores[] = {6,5,4,A4,8,7}; //I1, I2, I3, D3, D2, D1
+byte sensores[] = {3,2}; //I,D
 
 void setup(){
   Serial.begin(9600);
@@ -9,7 +9,7 @@ void setup(){
 }
 
 void loop(){
-  Serial.println("Lectura sensores: ");
+  Serial.println("Lectura encoder: ");
   for (int i=0; i<(sizeof(sensores)/sizeof(byte)); i++){
     Serial.print(digitalRead(sensores[i]));
     Serial.print(" ");
