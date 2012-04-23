@@ -16,7 +16,7 @@ class WheelEnc
     WheelEnc(byte, byte);
     boolean checkLeft();
     boolean checkRight();
-    void setGoal();
+    void waitSteps(byte);
 };
 
 WheelEnc::WheelEnc(byte pinLeft, byte pinRight){
@@ -60,12 +60,13 @@ boolean WheelEnc::checkRight(){
     }
 }
 
-void WheelEnc::setGoal(byte pulses){
+void WheelEnc::waitSteps(byte goal){
     stepLeft = 0;
     stepRight = 0;
     lastLeft = digitalRead(pinLeft);
     lastRight = digitalRead(pinRight);
-    goalPulses = pulses
+    goalPulses = goal;
+    while(!checkLeft() || !checkRight());
 }
 
 #endif
