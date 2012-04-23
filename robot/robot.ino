@@ -1,6 +1,8 @@
 #include <Motor298.h>
 #include <Driver298.h>
 #include <LineSensor.h>
+#include <PathFollow.h>
+#include <WheelEnc.h>
 
 /**********************/
 /* Definiciones Motor */
@@ -12,10 +14,9 @@
 #define MT_DCHA_AVANCE  6
 #define MT_DCHA_RETRO   7
 #define MT_DCHA_CONTROL 6
-#define MT_MAX_PWM      1024
 
 #if !digitalPinHasPWM(MT_IZQ_CONTROL) || !digitalPinHasPWM(MT_DCHA_CONTROL)
-  #error "Los pines de control deben ser PWM"
+  #error "Los pines de control del motor deben ser PWM"
 #endif
 
 Driver298 motor(MT_IZQ_AVANCE, MT_IZQ_RETRO, MT_IZQ_CONTROL,
@@ -25,24 +26,39 @@ Driver298 motor(MT_IZQ_AVANCE, MT_IZQ_RETRO, MT_IZQ_CONTROL,
 /* Definiciones Sensor Línea */
 /*****************************/
 byte pinLine[LN_SENSORS] = {1,2,3,4,5,6};
-LineSensor line(pinLine);
-byte ratio;
+LineSensor line(&motor, pinLine);
+
+/******************************/
+/* Definiciones Encoder Rueda */
+/******************************/
+#define ENC_IZQ  3
+#define ENC_DCHA 2
+WheelEnc encoder(ENC_IZQ, ENC_DCHA);
+
+/******************************/
+/* Definiciones Sigue Caminos */
+/******************************/
+PathFollow path(&motor, &encoder);
+
 
 void setup(){
   Serial.begin(9600);
+  Serial.println(F("Selecciona un modo:"));
+  Serial.println(F("1. Sigue lineas"));
+  Serial.println(F("2. Sigue caminos"));
+  Serial.println(F("Modo: "));
 }
 
 void loop(){
-  #ifdef LN_CONTROLLER_K
-  ratio = line.follow();
-  if (ratio > 0){
-    motor.setSpeed(D298_FW, MT_MAX_PWM, D298_FW, map(ratio,0,5,MT_MAX_PWM,256));
-  }
-  else if (ratio < 0){
-    motor.setSpeed(D298_FW, map(ratio,0,-5,MT_MAX_PWM,256), D298_FW, MT_MAX_PWM);
-  }
-  else{
-    motor.setSpeed(D298_FW, MT_MAX_PWM);
-  }
-  #endif
+  while(!Serial.available());
+    switch(Serial.read()){
+      case '1':
+        Serial.println(F("Modo siguelineas activado"));
+        line.follow();
+        break;
+      case '2':
+        Serial.println(F("Modo sigue caminos activado"));
+        path.follow();
+        break;
+    }
 }
