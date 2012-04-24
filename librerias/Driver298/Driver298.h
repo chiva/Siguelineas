@@ -8,15 +8,15 @@
 #define D298_BW         false
 #define D298_LEFT       true
 #define D298_RIGHT      false
-#define D298_MAX_SPEED  255
-#define D298_REC_SPEED  153
+#define D298_REC_SPEED  170     //PWM para hacer 3V de media con 5V
+#define D298_MAX_SPEED  255     //PWM para sacar 5V al motor en continua
+#define D298_FULL_SPEED D298_REC_SPEED
 
 class Driver298
 {
-  private:
-    Motor298 left, right;
   public:
     Driver298(byte, byte, byte, byte, byte, byte);
+    Motor298 left, right;
     void stop();
     void brake();
     void forward(byte);

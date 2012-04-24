@@ -13,7 +13,7 @@ WheelEnc	KEYWORD1
 #######################################
 checkLeft	KEYWORD2
 checkRight	KEYWORD2
-waitSteps	KEYWORD2
+setGoal	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
