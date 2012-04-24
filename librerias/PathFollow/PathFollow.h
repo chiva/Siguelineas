@@ -25,6 +25,7 @@ class PathFollow
     Driver298 *motor;
     WheelEnc *encoder;
     void read();
+    void waitSteps();
     char steps[PTH_MAX_STEP];
   public:
     PathFollow(Driver298*, WheelEnc*);
@@ -80,14 +81,17 @@ void PathFollow::follow(){
                 case PTH_BW:
                     motor->reverse(D298_FULL_SPEED);
                     encoder->setGoal(PTH_STEPS);
+                    waitSteps();
                     break;
                 case PTH_LFT:
                     motor->turn(D298_LEFT, D298_FULL_SPEED, D298_FULL_SPEED);
                     encoder->setGoal(PTH_STEPS);
+                    waitSteps();
                     break;
                 case PTH_RGT:
                     motor->turn(D298_RIGHT, D298_FULL_SPEED, D298_FULL_SPEED);
                     encoder->setGoal(PTH_STEPS);
+                    waitSteps();
                     break;
                 case PTH_STP:
                     motor->stop();
