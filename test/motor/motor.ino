@@ -4,8 +4,11 @@
 Driver298 motor(A0,A1,10,A2,A3,9);
 
 void setup(){
-  motor.forward(D298_MAX_SPEED);
 }
 
 void loop(){
+  for(int i=0; i<=D298_FULL_SPEED; ++i){
+    motor.forward(i);
+    delay(50);
+  }
 }
