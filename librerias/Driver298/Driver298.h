@@ -2,13 +2,14 @@
 #define Driver298_h
 
 #include "Arduino.h"
-#include "Motor298.h"
+#include <Motor298.h>
 
 #define D298_FW         true
 #define D298_BW         false
 #define D298_LEFT       true
 #define D298_RIGHT      false
 #define D298_MAX_SPEED  255
+#define D298_REC_SPEED  153
 
 class Driver298
 {

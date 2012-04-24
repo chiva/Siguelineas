@@ -1,5 +1,5 @@
 //Deteccion a 0
-byte sensores[] = {6,5,4,A4,8,7}; //I1, I2, I3, D3, D2, D1
+byte sensores[] = {7,8,A4,4,5,6}; //D3,D2,D1,I1,I2,I3
 
 void setup(){
   Serial.begin(9600);

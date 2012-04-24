@@ -25,7 +25,7 @@ Driver298 motor(MT_IZQ_AVANCE, MT_IZQ_RETRO, MT_IZQ_CONTROL,
 /*****************************/
 /* Definiciones Sensor Línea */
 /*****************************/
-byte pinLine[LN_SENSORS] = {1,2,3,4,5,6};
+byte pinLine[LN_SENSORS] = {7,8,A4,4,5,6};
 LineSensor line(&motor, pinLine);
 
 /******************************/
@@ -39,7 +39,6 @@ WheelEnc encoder(ENC_IZQ, ENC_DCHA);
 /* Definiciones Sigue Caminos */
 /******************************/
 PathFollow path(&motor, &encoder);
-
 
 void setup(){
   Serial.begin(9600);
