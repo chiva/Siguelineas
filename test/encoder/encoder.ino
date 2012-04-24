@@ -14,6 +14,5 @@ void loop(){
     Serial.print(digitalRead(sensores[i]));
     Serial.print(" ");
   }
-  Serial.println();
-  delay(500);
+  Serial.print('\r');
 }
