@@ -45,7 +45,7 @@ void setup(){
   Serial.println(F("Selecciona un modo:"));
   Serial.println(F("1. Sigue lineas"));
   Serial.println(F("2. Sigue caminos"));
-  Serial.println(F("Modo: "));
+  Serial.print(F("Modo: "));
 }
 
 void loop(){

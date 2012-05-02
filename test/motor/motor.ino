@@ -7,8 +7,12 @@ void setup(){
 }
 
 void loop(){
-  for(int i=0; i<=D298_FULL_SPEED; ++i){
+  for(int i=D298_FULL_SPEED/2; i<=D298_FULL_SPEED; ++i){
     motor.forward(i);
     delay(50);
+    if(i == D298_FULL_SPEED){
+      motor.forward(i);
+      delay(2000);
+    }
   }
 }
