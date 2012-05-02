@@ -9,15 +9,15 @@
 #define QUOTE(name) #name
 #define STR(macro) QUOTE(macro)
 
-#define PTH_MAX_STEP 10
-#define PTH_STEPS    10
-#define PTH_FW       'i'
-#define PTH_BW       'k'
-#define PTH_LFT      'j'
-#define PTH_RGT      'l'
-#define PTH_STP      ' '
-#define PTH_END      '\n'
-#define PTH_DLY      1000
+#define PTH_MAX_STEP     10
+#define PTH_ENC_STEPS    10
+#define PTH_FW           'i'
+#define PTH_BW           'k'
+#define PTH_LFT          'j'
+#define PTH_RGT          'l'
+#define PTH_STP          ' '
+#define PTH_END          '\n'
+#define PTH_DLY          1000
 
 class PathFollow
 {
@@ -69,6 +69,7 @@ void PathFollow::waitSteps(){
 }
 
 void PathFollow::follow(){
+    Serial.println(F("Modo sigue caminos activado"));
     byte i;
     while(1){
         read();
@@ -78,25 +79,25 @@ void PathFollow::follow(){
                 case PTH_FW:
                     Serial.print(F("Recto........ "));
                     motor->forward(D298_FULL_SPEED);
-                    encoder->setGoal(PTH_STEPS);
+                    encoder->setGoal(PTH_ENC_STEPS);
                     waitSteps();
                     break;
                 case PTH_BW:
                     Serial.print(F("Atras........ "));
                     motor->reverse(D298_FULL_SPEED);
-                    encoder->setGoal(PTH_STEPS);
+                    encoder->setGoal(PTH_ENC_STEPS);
                     waitSteps();
                     break;
                 case PTH_LFT:
                     Serial.print(F("Izquierda.... "));
                     motor->turn(D298_LEFT, D298_FULL_SPEED, D298_FULL_SPEED);
-                    encoder->setGoal(PTH_STEPS);
+                    encoder->setGoal(PTH_ENC_STEPS);
                     waitSteps();
                     break;
                 case PTH_RGT:
                     Serial.print(F("Derecha...... "));
                     motor->turn(D298_RIGHT, D298_FULL_SPEED, D298_FULL_SPEED);
-                    encoder->setGoal(PTH_STEPS);
+                    encoder->setGoal(PTH_ENC_STEPS);
                     waitSteps();
                     break;
                 case PTH_STP:

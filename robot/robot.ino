@@ -52,11 +52,9 @@ void loop(){
   while(!Serial.available());
     switch(Serial.read()){
       case '1':
-        Serial.println(F("Modo siguelineas activado"));
         line.follow();
         break;
       case '2':
-        Serial.println(F("Modo sigue caminos activado"));
         path.follow();
         break;
     }

@@ -27,6 +27,7 @@ class LineSensor
 LineSensor::LineSensor(Driver298 *motor, byte pinSensor[]){
     lastWeight = 0;
     this->motor = motor;
+    pinMode(LED_BUILTIN, OUTPUT);
     
     for (byte i=0; i<LN_SENSORS; i++){
         this->pinSensor[i] = pinSensor[i];
@@ -57,8 +58,10 @@ void LineSensor::correct(int8_t weight){
 #ifdef LN_CONTROLLER_K
 
 byte LineSensor::follow(){
+    Serial.println(F("Modo siguelineas activado"));
     while(1){
         read();
+        digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
         weight = 0;
         sensorsOn = 0;
         for (byte i=0; i<LN_SENSORS; i++){
