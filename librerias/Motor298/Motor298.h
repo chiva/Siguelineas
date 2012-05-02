@@ -8,6 +8,7 @@ class Motor298
   private:
     byte pinForward, pinReverse, pinSpeed;
   public:
+    Motor298() {};
     Motor298(byte, byte, byte);
     void forward();
     void reverse();

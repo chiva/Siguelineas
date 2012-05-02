@@ -57,12 +57,13 @@ void PathFollow::read(){
             }
         }
     }
+    Serial.println();
 }
 
 void PathFollow::waitSteps(){
     while(1){
-        if(encoder->checkLeft()) motor->left.stop();
-        if(encoder->checkRight()) motor->right.stop();
+        if(encoder->checkLeft()) motor->left->stop();
+        if(encoder->checkRight()) motor->right->stop();
         if(encoder->checkLeft() && encoder->checkRight()) return;
     }
 }
@@ -71,33 +72,43 @@ void PathFollow::follow(){
     byte i;
     while(1){
         read();
-        for(i=0; steps[i]!=0; ++i){
+        Serial.println(F("Ejecutando..."));
+        for(i=0; steps[i]!=0; i++){
             switch(steps[i]){
                 case PTH_FW:
+                    Serial.print(F("Recto........ "));
                     motor->forward(D298_FULL_SPEED);
                     encoder->setGoal(PTH_STEPS);
                     waitSteps();
                     break;
                 case PTH_BW:
+                    Serial.print(F("Atras........ "));
                     motor->reverse(D298_FULL_SPEED);
                     encoder->setGoal(PTH_STEPS);
                     waitSteps();
                     break;
                 case PTH_LFT:
+                    Serial.print(F("Izquierda.... "));
                     motor->turn(D298_LEFT, D298_FULL_SPEED, D298_FULL_SPEED);
                     encoder->setGoal(PTH_STEPS);
                     waitSteps();
                     break;
                 case PTH_RGT:
+                    Serial.print(F("Derecha...... "));
                     motor->turn(D298_RIGHT, D298_FULL_SPEED, D298_FULL_SPEED);
                     encoder->setGoal(PTH_STEPS);
                     waitSteps();
                     break;
                 case PTH_STP:
+                    Serial.print(F("Parar........ "));
                     motor->stop();
                     delay(PTH_DLY);
                     break;
+                default:
+                    Serial.println(F("Desconocido.. "));
+                    break;
             }
+            Serial.println(F("OK"));
         }
     }
 }

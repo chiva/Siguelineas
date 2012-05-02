@@ -15,8 +15,9 @@
 class Driver298
 {
   public:
+    Driver298() {};
     Driver298(byte, byte, byte, byte, byte, byte);
-    Motor298 left, right;
+    Motor298 *left, *right;
     void stop();
     void brake();
     void forward(byte);
@@ -26,7 +27,10 @@ class Driver298
     void turn(boolean, byte, byte);
 };
 
-Driver298::Driver298(byte pinLF, byte pinLB, byte pinLS, byte pinRF, byte pinRB, byte pinRS) : left(pinLF, pinLB, pinLS), right(pinRF, pinRB, pinRS){}
+Driver298::Driver298(byte pinLF, byte pinLB, byte pinLS, byte pinRF, byte pinRB, byte pinRS){
+    left = new Motor298(pinLF, pinLB, pinLS);
+    right = new Motor298(pinRF, pinRB, pinRS);
+}
 
 inline void Driver298::forward(byte speed){
     setSpeed(D298_FW, speed, D298_FW, speed);
@@ -37,8 +41,8 @@ inline void Driver298::reverse(byte speed){
 }
 
 void Driver298::setSpeed(boolean spinLeft, byte speedLeft, boolean spinRight, byte speedRight){
-    left.setSpeed(spinLeft, speedLeft);
-    right.setSpeed(spinRight, speedRight);
+    left->setSpeed(spinLeft, speedLeft);
+    right->setSpeed(spinRight, speedRight);
 }
 
 inline void Driver298::setSpeed(byte speedLeft, byte speedRight){
@@ -46,6 +50,7 @@ inline void Driver298::setSpeed(byte speedLeft, byte speedRight){
 }
 
 void Driver298::turn(boolean direction, byte speedL, byte speedR){
+    Serial.println(F("Motor: giro"));
     if (direction) {
         setSpeed(D298_BW, speedL, D298_FW, speedR);
     } else {
@@ -54,13 +59,15 @@ void Driver298::turn(boolean direction, byte speedL, byte speedR){
 }
 
 void Driver298::stop(){
-    left.stop();
-    right.stop();
+    Serial.println(F("Motor: stop"));
+    left->stop();
+    right->stop();
 }
 
 void Driver298::brake(){
-    left.brake();
-    right.brake();
+    Serial.println(F("Motor: parado"));
+    left->brake();
+    right->brake();
 }
 
 #endif
