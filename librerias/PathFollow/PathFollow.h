@@ -10,7 +10,7 @@
 #define STR(macro) QUOTE(macro)
 
 #define PTH_MAX_STEP     10
-#define PTH_ENC_STEPS    10
+#define PTH_ENC_STEPS    24
 #define PTH_FW           'i'
 #define PTH_BW           'k'
 #define PTH_LFT          'j'
