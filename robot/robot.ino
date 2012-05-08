@@ -8,12 +8,12 @@
 /* Definiciones Motor */
 /**********************/
 // PWM 5 y 6, no llegan a 0
-#define MT_IZQ_AVANCE   3
-#define MT_IZQ_RETRO    4
-#define MT_IZQ_CONTROL  5
-#define MT_DCHA_AVANCE  6
-#define MT_DCHA_RETRO   7
-#define MT_DCHA_CONTROL 6
+#define MT_IZQ_AVANCE   A0
+#define MT_IZQ_RETRO    A1
+#define MT_IZQ_CONTROL  10
+#define MT_DCHA_AVANCE  A2
+#define MT_DCHA_RETRO   A3
+#define MT_DCHA_CONTROL 9
 
 #if !digitalPinHasPWM(MT_IZQ_CONTROL) || !digitalPinHasPWM(MT_DCHA_CONTROL)
   #error "Los pines de control del motor deben ser PWM"
