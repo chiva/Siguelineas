@@ -50,12 +50,12 @@ void setup(){
 
 void loop(){
   while(!Serial.available());
-    switch(Serial.read()){
-      case '1':
-        line.follow();
-        break;
-      case '2':
-        path.follow();
-        break;
-    }
+  switch(Serial.read()){
+    case '1':
+      line.follow();
+      break;
+    case '2':
+      path.follow();
+      break;
+  }
 }
