@@ -13,7 +13,7 @@
 #endif
 #ifdef LN_CONTROLLER_PD
     #define LN_MAX_ERROR 99
-    #define LN_KP 10
+    #define LN_KP 50
     #define LN_KD 0
 #endif
 
@@ -64,6 +64,7 @@ inline int LineSensor::errorP(){
         }
     }
     if (!sensorsOn){
+        motor->setSpeed(D298_FW, D298_FULL_SPEED, D298_BW, D298_FULL_SPEED);
         weight = 5;
     } else {
         weight /= sensorsOn;
