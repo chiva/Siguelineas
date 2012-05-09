@@ -6,16 +6,6 @@
 #include <Driver298.h>
 
 #define LN_SENSORS 6
-#define LN_CONTROLLER_P
-
-#ifdef LN_CONTROLLER_P
-    #define LN_KP 1
-#endif
-#ifdef LN_CONTROLLER_PD
-    #define LN_MAX_ERROR 99
-    #define LN_KP 50
-    #define LN_KD 0
-#endif
 
 class LineSensor
 {
@@ -27,9 +17,6 @@ class LineSensor
     void correct(int);
     void read();
     int errorP();
-#ifdef LN_CONTROLLER_PD
-    int errorD();
-#endif
   public:
     LineSensor(Driver298*, byte[]);
     void follow();
@@ -70,13 +57,10 @@ inline int LineSensor::errorP(){
         weight /= sensorsOn;
         lastWeight = weight;
     }
-    weight *= LN_KP;
     Serial.print(F("ErrorP: "));
     Serial.println(weight);
     return weight;
 }
-
-#ifdef LN_CONTROLLER_P
 
 void LineSensor::follow(){
     Serial.println(F("Modo siguelineas activado"));
@@ -96,77 +80,5 @@ void LineSensor::correct(int weight){
         motor->forward(D298_FULL_SPEED);
     }
 }
-
-#endif //LN_CONTROLLER_P
-
-#ifdef LN_CONTROLLER_PD
-
-void LineSensor::follow(){
-    int error;
-    unsigned int lastTime = millis();
-    
-    Serial.println(F("Modo siguelineas activado"));
-    while(1){
-        while(millis() - lastTime < 10);
-        lastTime = millis();
-        read();
-        error = errorP() + errorD();
-        correct(error);
-    }
-}
-
-void LineSensor::correct(int error){
-    if(error > D298_FULL_SPEED)
-        error = D298_FULL_SPEED;
-    else if(error < -D298_FULL_SPEED)
-        error = -D298_FULL_SPEED;
-    
-    if (error > 0){
-        motor->setSpeed(D298_FW, D298_FULL_SPEED, D298_FW, D298_FULL_SPEED-error);
-    }
-    else if (error < 0){
-        motor->setSpeed(D298_FW, D298_FULL_SPEED-error, D298_FW, D298_FULL_SPEED);
-    } else{
-        motor->forward(D298_FULL_SPEED);
-    }
-}
-
-int LineSensor::errorD(){
-    int error = LN_MAX_ERROR;
-    static int lastError = 0;
-    static int errorD=0;
-    static int lastErrorD = 0;
-    static int tic = 1;
-    static int lastTic = 1;
-    
-    int diferencia = 0;
-    
-    for (byte i=LN_SENSORS-1; i>=0; i--){
-        if (!lastRead[i] && abs(sensorWeight[i]) < error) error = sensorWeight[i];
-    }
-    if (error == LN_MAX_ERROR){
-        if (lastError < 0) error = -sensorWeight[LN_SENSORS]-2;
-        else if(lastError > 0) error = sensorWeight[LN_SENSORS]+2;
-    }
-    
-    if (error == lastError){
-        tic++;
-        if(tic > 30000) tic = 30000;
-        if(tic > lastTic) errorD = lastErrorD/tic;
-    } else {
-        diferencia = error - lastError;
-        errorD = LN_KD*(diferencia)/tic; //error medio
-        lastErrorD = errorD;
-        lastTic=tic;
-        tic=1;
-    }
-    
-    lastError = error;
-    Serial.print(F("errorD: "));
-    Serial.println(errorD);
-    return(errorD);
-}
-
-#endif //LN_CONTROLLER_PD
 
 #endif //LineSensor_h
