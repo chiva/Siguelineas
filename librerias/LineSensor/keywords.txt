@@ -11,7 +11,6 @@ LineSensor	KEYWORD1
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
-read	KEYWORD2
 follow	KEYWORD2
 
 #######################################
