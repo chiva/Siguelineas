@@ -42,20 +42,25 @@ PathFollow path(&motor, &encoder);
 
 void setup(){
   Serial.begin(9600);
-  Serial.println(F("Selecciona un modo:"));
-  Serial.println(F("1. Sigue lineas"));
-  Serial.println(F("2. Sigue caminos"));
-  Serial.print(F("Modo: "));
 }
 
 void loop(){
+  Serial.println(F("Selecciona un modo:"));
+  Serial.println(F("a. Sigue lineas"));
+  Serial.println(F("b. Sigue caminos"));
+  Serial.print(F("Modo: "));
+  
   while(!Serial.available());
   switch(Serial.read()){
-    case '1':
+    case 'a':
       line.follow();
       break;
-    case '2':
+    case 'b':
       path.follow();
       break;
+    default:
+      Serial.println(F("ERROR: modo desconocido"));
+      break;
   }
+  Serial.println();
 }

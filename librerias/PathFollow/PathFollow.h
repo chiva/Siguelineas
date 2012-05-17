@@ -40,12 +40,13 @@ PathFollow::PathFollow(Driver298 *motor, WheelEnc *encoder){
 void PathFollow::read(){
     byte i=0;
     char c;
-    while(Serial.available() > 0) Serial.read();
-    Serial.println(F("^:" STR(PTH_FW) " v:" STR(PTH_BW) " <:" STR(PTH_LFT) " >:" STR(PTH_RGT) " Stop: space"));
+    while(Serial.available()) Serial.read();
+    Serial.println(F("^:" STR(PTH_FW) " v:" STR(PTH_BW) " <:" STR(PTH_LFT) " >:" STR(PTH_RGT) " Stop: espacio Vacio: menu"));
     Serial.println(F("Introduce el camino: "));
     while(i<PTH_MAX_STEP){
         if(Serial.available() > 0){
             c = Serial.read();
+            Serial.print(c);
             if(c == '\n'){
                 steps[i] = 0;
                 break;
@@ -77,6 +78,7 @@ void PathFollow::follow(){
     byte i;
     while(1){
         read();
+        if(steps[0]=0) return;
         Serial.println(F("Ejecutando..."));
         for(i=0; steps[i]!=0; i++){
             switch(steps[i]){

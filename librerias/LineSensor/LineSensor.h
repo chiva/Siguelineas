@@ -67,6 +67,11 @@ void LineSensor::follow(){
     while(1){
         read();
         correct(errorP());
+        
+        if(Serial.available()){
+            Serial.read();
+            return;
+        }
     }
 }
 
