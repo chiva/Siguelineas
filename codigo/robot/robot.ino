@@ -45,6 +45,7 @@ void setup(){
 }
 
 void loop(){
+  motor.stop();
   Serial.println(F("Selecciona un modo:"));
   Serial.println(F("a. Sigue lineas"));
   Serial.println(F("b. Sigue caminos"));
