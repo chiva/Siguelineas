@@ -78,7 +78,7 @@ void PathFollow::follow(){
     byte i;
     while(1){
         read();
-        if(steps[0]=0) return;
+        if(steps[0]==0) return;
         Serial.println(F("Ejecutando..."));
         for(i=0; steps[i]!=0; i++){
             switch(steps[i]){
