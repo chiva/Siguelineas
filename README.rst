@@ -3,14 +3,14 @@ Siguelineas
 
 Robot de bajo coste seguidor de líneas basado en Arduino. Al disponer de módulo bluetooth, también es posible controlarlo de forma remota con un ordenador o dispositivo móvil.
 
-.. image:: https://raw.github.com/chiva/Siguelineas/master/documentacion/imagenes/general.jpg
+.. image:: https://raw.github.com/chiva/Siguelineas/master/documentacion/imagenes/primerplano.jpg
    :align: left
-   :target: https://raw.github.com/chiva/Siguelineas/master/documentacion/imagenes/big/general.jpg
-.. image:: https://raw.github.com/chiva/Siguelineas/master/documentacion/imagenes/linea.jpg
-   :target: https://raw.github.com/chiva/Siguelineas/master/documentacion/imagenes/big/linea.jpg
-.. image:: https://raw.github.com/chiva/Siguelineas/master/documentacion/imagenes/cny70.jpg
+   :target: https://raw.github.com/chiva/Siguelineas/master/documentacion/imagenes/big/primerplano.jpg
+.. image:: https://raw.github.com/chiva/Siguelineas/master/documentacion/imagenes/seguidor.jpg
+   :target: https://raw.github.com/chiva/Siguelineas/master/documentacion/imagenes/big/seguidor.jpg
+.. image:: https://raw.github.com/chiva/Siguelineas/master/documentacion/imagenes/detectores.jpg
    :align: right
-   :target: https://raw.github.com/chiva/Siguelineas/master/documentacion/imagenes/big/cny70.jpg
+   :target: https://raw.github.com/chiva/Siguelineas/master/documentacion/imagenes/big/detectores.jpg
    
 .. image:: https://raw.github.com/chiva/Siguelineas/master/documentacion/imagenes/bluetooth.jpg
    :align: left
